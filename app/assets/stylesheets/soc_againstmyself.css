@@ -1,0 +1,78 @@
+.howamspace {
+    color: #666666;
+    font-size: 11px;
+    font-weight: bold;
+}
+.links_score_p_myself {
+    background: none repeat scroll 0 0 #F9A943;
+    color: #FFFFFF;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin: -1px 0 7px 77px;
+    padding: 7px;
+    text-align: center;
+
+    width: 90%;
+}
+#myscoreself{
+	color: #666666;
+ 
+    font-weight: bold;
+}
+.togocolo {
+    color: #666666;
+    float: right;
+    position: relative;
+    right: 9%;
+	font-weight: bold;
+}
+
+.diffcolor{
+color: #7AC142;
+}
+
+#tasksnumber
+{
+	color: #999;
+	
+}
+#percentage_personal_myself
+{
+position:relative;
+    right: 12px;
+}
+
+.totalscorecolor {
+    color: #999999;
+}
+#imagewidth
+{
+	width: 20%;
+}
+p {
+    color: #7AC142;
+    font-weight: bold;
+    margin: -21px -41px 0;
+}
+
+#tasksnumber2 {
+    color: #999999;
+    float: right;
+    position: relative;
+    right: 35px;
+    top: -16px;
+}
+.links_score_p_social{
+  background: none repeat scroll 0 0 #F9A943;
+    color: #FFFFFF;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    height: 14px;
+    margin: 0 0 0 52px;
+    padding-bottom: 9px;
+    padding-top: 4px;
+    text-align: center;
+    width: 87%;
+}

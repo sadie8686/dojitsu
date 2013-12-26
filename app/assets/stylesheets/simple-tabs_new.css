@@ -1,0 +1,143 @@
+ul.tabs {
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	height: 32px; /*--Set height of tabs--*/
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
+	width: 100%;
+}
+ul.against {
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	height: 32px; /*--Set height of tabs--*/
+
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
+	width: 100%;
+}
+
+
+ul.tabs li {
+	float: left;
+	margin: 0;
+	padding: 0;
+	height: 31px; /*--Subtract 1px from the height of the unordered list--*/
+	line-height: 31px; /*--Vertically aligns the text within the tab--*/
+	border: 1px solid #999;
+	border-left: none;
+	margin-bottom: -1px; /*--Pull the list item down 1px--*/
+	overflow: hidden;
+	position: relative;
+	background: #e0e0e0 ;
+	
+}      
+ul.against li {
+	float: left;
+	margin: 0;
+	padding: 0;
+	height: 31px; /*--Subtract 1px from the height of the unordered list--*/
+	line-height: 31px; /*--Vertically aligns the text within the tab--*/
+	border: 1px solid #999;
+	border-left: none;
+	margin-bottom: -1px; /*--Pull the list item down 1px--*/
+	overflow: hidden;
+	position: relative;
+	background: #e0e0e0 ;
+	
+}                   
+             
+
+ul.tabs li a {
+	 border: 1px solid #FFFFFF;
+    color: #7A7A7A;
+    display: block;
+    font-size: 1.2em;
+    outline: medium none;
+    padding-left: 40px;
+    text-decoration: none;
+    width: 100px;
+	FONT-WEIGHT:BOLD;
+}
+ul.against li a {
+	 border: 1px solid #FFFFFF;
+    color: #7A7A7A;
+    display: block;
+    font-size: 1.2em;
+    outline: medium none;
+    padding-left: 40px;
+    text-decoration: none;
+    width: 100px;
+	FONT-WEIGHT:BOLD;
+}
+
+
+
+ul.tabs li  {
+	background: url("btn_radio_off.png") no-repeat scroll 19px 60% #F4F4F4;
+}      
+ 
+html ul.tabs li.active, html ul.tabs li.active { 
+	background:#FFFFFF;
+	border-bottom: 1px solid #ffffff; 
+	background: url("btn_radio_on.png") no-repeat scroll 19px 70% white;
+}
+
+.spacing{
+ margin-left: 9em;
+}
+.spacing2{
+padding-left:9px;
+}
+
+.tab_container {
+	border: 1px solid #999;
+	border-top: none;
+	overflow: hidden;
+	clear: both;
+	float: left; width: 100%;
+	background: #fff;
+}         
+
+.against_container {
+	border: 1px solid #999;
+	border-top: none;
+	overflow: hidden;
+	clear: both;
+	float: left; width: 100%;
+	background: #fff;
+}       
+
+.tab_container1 {
+	border: 1px solid #999;
+	border-top: none;
+	
+	clear: both;
+	float: left; width: 100%;
+	background: #f4f4f4;
+} 
+#tab1
+{
+background: white;
+}
+.tab_content {
+	padding: 20px;
+	font-size: 1.2em;
+	
+}
+
+.against_content {
+	padding: 20px;
+	font-size: 1.2em;
+}
+
+.tab_content2 {
+	margin-top:0px;
+	margin-left:5px;
+	margin-bottom:4px;
+	margin-right:5px;
+	font-size: 1.2em;
+}

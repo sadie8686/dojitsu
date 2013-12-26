@@ -1,0 +1,22 @@
+
+<%= render 'layouts/loggedinbody'%>
+<div class="challengeSubNav">
+    <%=link_to( image_tag("newbutton.PNG"), new_challenge_url, :class => "new_challenge_button_new1", :method => :get )%>
+    <%= link_to "MY CHALLENGES  ",challenges_url ,:class => "challenge_link" , :id=>"mychallenges_style" %>
+</div>
+
+ <% if @challenges.blank? %>
+  <p>no challenges at all.</p>
+  
+ <% else %>
+  <h3>All Challenges</h3>
+ <div id="ch_index_list" style="width:100%; float:left;">
+  <% @challenges.each do |c| %>
+  
+   <%= link_to c.title, {:action => 'show_per', :id => c.id }, :class=>"my_challenges_style"%> &nbsp;&nbsp;&nbsp;&nbsp;<br>
+
+  <% end %> 
+ </br>
+ </div>
+<% end %>
+<br/>

@@ -1,0 +1,155 @@
+<section id="messagecount">
+  <section id="messagecountTest">
+      <%= current_user.unReadMessage.count %>
+  </section>  
+</section>
+<%= render 'layouts/loggedinbody'%>
+
+<%= javascript_include_tag('jquery.colorbox-min','messageJs','jquery.tools.min')%>
+<%= stylesheet_link_tag('colorbox','messageCss')%>
+<section class="challengeSubNav">
+    <%= button_to "", "#", :class => "new_message_button_index", :method => :get%> 
+    <%= link_to "MESSAGES  ",dashboard_index_url ,:class => "challenge_link" , :style=> "text-decoration: none; color:#666666; left: 15px;" %>
+</section>	
+
+<section class="challange" id="messageBox">
+  <table width="100%">  
+    <tr>
+        <td width="64%" ><font color="#f8981d">MESSAGES</font></td>
+        <td width="20%" >
+          <input type="text" id="search" />
+        </td>
+         <script>
+         function search()
+         {
+         var name_search=document.getElementById("search").value;
+             select();    
+         }
+         </script>
+         <td width="13%" ><div class="styled-select"> <select id="select">
+           <option value="All" id="select">ALL</option>
+           <option value="Unread" id="select">Unread</option>
+           <option value="Archived" id="select">Archived</option>
+           <option value="Sent" id="select">Send</option>
+          </select> </div>
+      </td>
+      <td width="3%" valign="bottom">
+          <%=image_tag("searchbutton.PNG",  :onclick=>"search();", :hight=>30, :width =>30 ) %>                   
+      </td>
+    </tr>
+</table>
+</section>
+<table class="sortable" width="100%">  
+    <thead>
+      <tr><th style="CURSOR: pointer; cursor: hand;" id="content1">FROM</th><th style="CURSOR: pointer; cursor: hand;" id="content2"><span id="timespace">TIME</span></th><th width="1%"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <% current_user.inbox.each do |userMessage| %>
+          <% if userMessage.isRead == 1 %>
+              <tr bgcolor ="#FFFFFF">
+                  <td width="7%" class="bordercolortM" style="padding-left:15px;" onclick="location.href='<%= individualAllMessage_messages_path(:iId => userMessage.from, :id =>userMessage.id) %>'">
+                      <%= image_tag(FbGraph::User.new(userMessage.from).fetch.picture) %>            </td>
+                  <td width="81%" class="bordercolortM" style="padding-right:20px;" onclick="location.href='<%= individualAllMessage_messages_path(:iId => userMessage.from, :id =>userMessage.id) %>'">
+                      <font size="3px" style="float:right; margin-top: 12px;">
+
+                          <%#= availability_date = DateTime.parse(userMessage.created_at.to_s)%>
+
+                          <%#= time_now = DateTime.parse(DateTime.now.to_s)%>
+                          <%#= DateTime.now.in_time_zone %>
+
+                          <%#= time_now = DateTime.parse(DateTime.now.in_time_zone.to_s) %>
+                          <%#= time_until = availability_date - time_now %>
+                          <%#= t = time_until.to_f %>
+
+                          <%= time_ago_in_words userMessage.created_at %>                </font>
+                      <font size="4px" style="font-weight:bold"><%= FbGraph::User.new(userMessage.from).fetch.name %></font></br>
+                      <font size="3px"><%= image_tag "icon_replied.png" %> <%=h truncate(userMessage.body, :length => 55) %>..</font></br>          </td>
+                  </td>
+                  <td width="11%" class="bordercolortM" style="padding-left:15px;">                    
+                    <% if userMessage.isRead == 0 %>
+                      <%= image_tag "btn_mark_read_up.png" %>&nbsp;&nbsp;
+                    <% else %>
+                      <%= link_to image_tag("btn_mark_unread_up.png"), markUnread_messages_path(:id => userMessage.id), :id => "demo", :title=>"Mark as Unread"  %>&nbsp;&nbsp;
+                    <% end %>                                
+                    <%= link_to image_tag("icon_multiply.png"), message_path(:id => userMessage.id), :method => 'delete' %>            </td>
+              </tr>
+          <% else %>
+              <tr bgcolor ="#F5FAF0">
+                  <td width="7%" class="bordercolortM" style="padding-left:15px;" onclick="location.href='<%= individualAllMessage_messages_path(:iId => userMessage.from, :id =>userMessage.id) %>'">
+                      <%= image_tag(FbGraph::User.new(userMessage.from).fetch.picture) %>            </td>
+                  <td width="81%" class="bordercolortM" style="padding-right:20px;" onclick="location.href='<%= individualAllMessage_messages_path(:iId => userMessage.from, :id =>userMessage.id) %>'">
+                      <font size="3px" style="float:right; margin-top: 12px;">
+
+                          <%#= availability_date = DateTime.parse(userMessage.created_at.to_s)%>
+
+                          <%#= time_now = DateTime.parse(DateTime.now.to_s)%>
+                          <%#= DateTime.now.in_time_zone %>
+
+                          <%#= time_now = DateTime.parse(DateTime.now.in_time_zone.to_s) %>
+                          <%#= time_until = availability_date - time_now %>
+                          <%#= t = time_until.to_f %>
+
+                          <%= time_ago_in_words userMessage.created_at %>                </font>
+                      <font size="4px" style="font-weight:bold"><%= FbGraph::User.new(userMessage.from).fetch.name %></font></br>
+                      <font size="3px"><%= image_tag "icon_replied.png" %> <%=h truncate(userMessage.body, :length => 55) %>..</font></br>          </td>
+                  </td>
+                  <td width="11%" class="bordercolortM" style="padding-left:15px; ">
+                    <% if userMessage.isRead == 0 %>
+                      <%= image_tag "btn_mark_read_up.png" %>&nbsp;&nbsp;
+                    <% else %>
+                      <%= image_tag "btn_mark_unread_up.png" %>&nbsp;&nbsp;
+                    <% end %>                                
+                    <%= link_to image_tag("icon_multiply.png"), message_path(:id => userMessage.id), :method => 'delete' %>            </td>
+              </tr>
+          <% end %>        
+        <% end %>
+    </tbody>    
+</table>
+
+<section style="display:none;">
+<section id="sendNewMessage">
+    <%= form_tag newmessage_messages_path, :method => :get do  %>
+    <table width="100%" bgcolor="#f4f4f4">
+      <tr bgcolor="#f4f4f4">
+        <td colspan="2">
+          <span id="messageTextHead">New Message</span>
+        </td>
+      </tr>
+      <tr bgcolor="#ffffff">
+        <td width="17%" class="bordercolort1">
+          <span id="messageText">T0</span>        
+        </td>
+        <td width="83%" class="bordercolort1">
+          <%= text_field_tag 'to', nil, :size=>"60" %>        </td>
+      </tr>
+      <tr bgcolor="#ffffff">
+        <td>
+          <span id="messageText">MESSAGE</span>
+        </td>
+        <td>
+          <%= text_area_tag 'message','', :class =>"textareaMessage" %>
+        </td>
+      </tr>
+      <tr bgcolor="#ffffff">
+        <td class="bordercolort1">
+          &nbsp;&nbsp;&nbsp;&nbsp;<%= image_tag("icon_attach_mo.png") %>&nbsp;&nbsp;&nbsp;&nbsp;
+          <%= image_tag("icon_photo_mo.png") %>
+        </td>
+        <td class="bordercolort1">
+          <section style="float: right;">
+            <%= check_box_tag 'toMobile','', false %>
+            <%= image_tag("icon_sms_mo.png") %>
+          </section>
+        </td>
+      </tr>
+      <tr bgcolor="#ffffff">
+        <td colspan="2">
+          <%= link_to "CANCEL",  messages_path, :style => "text-decoration: none; color:#fff; float:right" ,:class => "links_cancel_message"%>        
+          <%= submit_tag "SEND", :style => "width: 80px; float:right;", :class => "linksNewMessage" %>
+        </td>
+      </tr>
+    </table>
+    <% end %>
+</section>
+</section>

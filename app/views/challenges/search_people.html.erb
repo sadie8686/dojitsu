@@ -1,0 +1,53 @@
+<table width="100%" id="tblData" class="sortable" border=1>
+	<tbody bgcolor="#ffffff">
+       <tr >
+		  <td >
+			<div id="name">
+					</div>
+					</td>		
+				</tr>
+		</tbody>
+	</table>
+
+	<script> 
+	    	 window.fbAsyncInit();
+		          FB.getLoginStatus(function(response) { 
+                 if (response.session)
+{ 
+   globaluserid=response.session["uid"]; 
+   name=globaluserid;
+}
+}
+);
+					
+<% @challenge.child_challenges.each do |aTask| %>
+var len = <%= @challenge.child_challenges.length %>
+
+<% if aTask.user_id %>
+<% if aTask.social_type.status == 1  or  @challenge.user_id == aTask.user_id %>
+			status='<%= image_tag ("icon_accept.png") %>';
+<% else %>
+<% if aTask.social_type.status == 0 %>
+			status='<%= image_tag ("icon_thinking.png") %>';
+<% else %>
+			status='<%= image_tag("icon_decline.png") %>';
+<% end %>
+																							
+																							 
+																							
+																							
+																							
+																						<% end %>
+<%end%>
+		var img = <%= aTask.user_id %>
+						  FB.api({
+                                                            method: 'fql.query',
+                                                            query: 'SELECT name,pic_square FROM user WHERE uid=' +  <%= aTask.user_id %>
+                                                        }, function(response){
+													
+													              														   
+                                                               htmlcontent="<table><tr><td><img src=" + response[0].pic_square + " />"+ response[0].name+"</td><td><% if aTask.social_type.status == 1 %><img src="+"/assets/icon_accept.png"+"><% elsif aTask.social_type.status == -1 %><img src="+"/assets/icon_decline.png"+"><% else %><img src="+"/assets/icon_thinking.png"+"><% end %></td></tr></table>" ;
+                                                               $("#name").append(htmlcontent);
+                                                        });
+ <%end %>
+</script>

@@ -1,0 +1,180 @@
+
+.stedpoint
+{
+    color: #666;
+    font-weight: normal;
+    font-size: 12px;
+    font-family: arial;
+}
+#by_properties{
+    font-weight: normal;
+    font-family: arial;
+}
+.chname
+{
+    color: #666;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: arial;
+}
+
+
+#spancefortext4
+{
+
+    border-right: 2px solid white;
+    padding-left: 18px;
+}
+#checkit {
+    color: #7AC142;
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+    position: relative;
+    right: 36%;
+    top: -10px;
+    width: 57%;
+}
+
+
+.pointscolor1 {
+    color: #F8981D;
+    float: right;
+    font-weight: bold;
+    right: 20px;
+    position: relative;
+    text-align: right;
+    top: 18px;
+    width: 100px;
+}
+
+.ui-corner-all
+{
+    border-radius: 0 0 0 0;
+}
+.completedtask {
+    color: #7AC142;
+    font-weight: bold;
+    left: -3px;
+    position: relative;
+    top: 2px;
+    width: 70%;
+}
+
+
+.notcompleted
+{
+    float:left;
+    left:3px;
+    position:relative;
+    color:#F8981D;
+    top: 5px;
+}
+.taskprogress {
+    float: left;
+    left: -7px;
+    position: relative;
+    top: 5px;
+    width: 190%;
+}
+select {
+    color: #F9A943;
+    height: 20px;
+    margin-top: -8px;
+    top: 5px;
+    vertical-align: top;
+}
+thead th {
+    background: none repeat scroll 0 0 #D7D7D7;
+    color:#999999;
+}
+#borderalign
+{
+    margin-top: 3px;
+    border-left: 2px solid #FFFFFF;
+}
+#tableheader
+{
+    border-collapse: separate;
+
+}
+#spancefortext
+{
+    float: right;
+    position: relative;
+    right: 67%;
+}
+
+
+
+
+.updatebutton
+{
+    top: 10px;
+    position: relative;
+}
+#score_points
+{
+    font-weight:bold;
+    font-size: 12px;
+}
+#score_tasks
+{
+
+    font-size: 12px;
+    font-weight: normal;
+}
+#completedtext {
+    float: right;
+    position: relative;
+    right: 182px;
+}
+.updatebuttonmyself {
+    float: right;
+    position: relative;
+    right: 7px;
+    top: -1px;
+}
+.bordercolort {
+    margin: 3px 5px 5px;
+    padding-bottom: 6px;
+    padding-left: 16px;
+    border-bottom: 1px solid #999;
+
+}
+.timestyle1 {
+    color: #999;
+    float: left;
+    font-weight: bold;
+    position: relative;
+    font-size: 12px;
+}
+#completed_header{
+    left: 18px;
+    position: relative;
+    z-index: 1;
+}
+
+#spancefortext1{
+padding-left: 70px;
+}
+#textmodification
+{
+    float: left;
+    position: relative;
+    left: 15px;
+}
+
+#spancefortextother {
+    float: right;
+    position: relative;
+    right: 71%;
+}
+
+.namedetails{
+float: right;
+position: relative;
+right: 82%;
+}
+.namespace{ border-left: 2px solid white;
+    padding-left: 18px;}

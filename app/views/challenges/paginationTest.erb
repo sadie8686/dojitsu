@@ -1,0 +1,92 @@
+<%= javascript_include_tag('fbWallPost') %>
+<%= render 'layouts/loggedinbody'%>
+<%#= debug @users %>
+
+<% @users.each do |aChallenge| %>
+<table>
+  <tr>
+    <td><%= aChallenge.user_id %> </td>
+    <td><%= aChallenge.target_id %></td>
+  </tr>
+</table>
+<% end %>
+<%= will_paginate @users %>
+
+
+
+<%#= debug Challenge.all_winners %>
+
+<%#= debug Challenge.task_score('4ef1a6a454b53001a4000067')%>
+
+<script> 
+  $.dojitsuWallPost.renderFbWallPost();
+</script>
+
+
+<%#= Challenge.count %>
+<%#= Challenge.exists? %>
+<%#= Challenge.blank? %>
+<%#= Challenge.where(:_type.exists => false).count %>
+<%#= Challenge.where(:_type.exists => false).only(:social_type).count %>
+<%#= Challenge.where(:type => "Challenge").count %>
+<%#= Challenge.only(:social_type).where(:_type => "ChallengeSocialType").count %>
+<%#= Challenge.where(:_type.exists => false).also_in(:_type => "Challenge") %>
+
+<%#= Challenge.any_in(aliases: [ "Bond" ]).also_in(aliases: [ "007" ]) %>
+<%#= Challenge.any_in(:_type.exists => false) %>
+
+<% noChallenge = 0 %>
+<% Challenge.where(:_type.exists => false).each do |possibleChallenge| %>
+    <% if possibleChallenge.social_type.instance_of?ChallengeSocialType%>
+      <% noChallenge = 1 %>
+    <% end %>
+<% end %>
+<% if noChallenge == 1 %> 
+    there is challenge
+<% else %>
+    No Challenge               
+<% end %>
+   
+    </br>    
+    
+    
+    <%= Challenge.winner('4ef1a6a454b53001a4000067') %> 
+    </br>
+    <%= Challenge.winnerCompleteAllTask('4ef1a6a454b53001a4000067') %>
+    </br>
+    
+    
+
+    <% @challenge = Challenge.where(:_id => "4ef1a6a454b53001a4000067").first %> 
+    <% aTotalScore = 0  %>
+    <% @list=Hash.new() %>  
+   
+    <% if @challenge.instance_of?Challenge %>
+        <% @challenge.tasks.each_with_index do |orgTasks,index| %>
+            <%= orgTasks.score %>=<%= index %>,
+            <% aTotalScore += orgTasks.score.to_i %>
+        <% end %>
+        <% @list[@challenge.user_id] = aTotalScore %>    
+        <%#= @challenge.user_id %> = <%#= @firstWinnerScore= aTotalScore %>
+        <%= @list[@challenge.user_id] %>
+        </br>
+        <% aTotalScore = 0  %>
+        <% @challenge.child_challenges.each do |aChildChallenge| %>
+        <% aChildChallenge.tasks.each_with_index do |eachTasks,index| %>
+            <%= eachTasks.score %>=<%= index %>,
+            <% aTotalScore += eachTasks.score.to_i %>
+        <% end %>
+        <%#= aChildChallenge.user_id %>=<%#= aTotalScore  %>
+        <%= @list[aChildChallenge.user_id] = aTotalScore %>
+        <% aTotalScore = 0  %>    
+        </br>    
+    <% end %>
+      
+    <%= @winner = @list.sort {|a,b| -1*(a[1]<=>b[1]) } %>    
+        
+    <% else %>
+        childchallenge
+    <% end %>
+    
+    
+    

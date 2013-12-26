@@ -1,0 +1,644 @@
+<%= stylesheet_link_tag('simple-tabs','datePicker','soc_per', 'colorbox','jquery-ui', 'ui.progressbar','ui.theme', 'main','soc-per','challenges.css')%>
+<%= javascript_include_tag('simple-tabs','ui.progressbar','jquery.colorbox-min', 'jquery.cluetip.js','jquery.table.addrow','on_the_spot','jquery.tools.min','soc-per','challengePersonal','fbWallPost')%>
+<%= render 'layouts/loggedinbody'%>
+<body id="related">
+<div class="challengeSubNav" onclick="Testingbody();">
+
+   <section class="challengeSubNav">
+	<%=link_to( image_tag("newbutton.PNG"), new_challenge_url, :class => "new_challenge_button_new1", :method => :get )%>
+    <%= link_to "MY CHALLENGES >> ", challenges_url ,  :class => "challenge_link1" %>
+	<%= link_to "#{@challenge.title}","#" ,  :class => "challenge_link1" %> 
+</section> 
+
+<%if @challenge.pagecount==0%>
+    <script> 
+      $.dojitsuWallPost.renderFbWallPost();
+    </script>
+ <% @challenge.update_attribute("pagecount","1") %>
+<% end %>
+
+<%= link_to "MY CHALLENGES >> ", challenges_url , :class => "challenge_link1" %>
+
+<%= link_to "#{@challenge.title}","#" , :class => "challenge_link1" %>
+
+</div>
+<% if isStandalone %> 
+   <% else %>
+	 <% if @challenge.pagecount == 0 %>
+		<script>
+			$.dojitsuWallPost.renderFbWallPost();
+		</script>
+		<% @challenge.update_attribute("pagecount","1")%>
+	<%end%>
+<% end %>
+
+<div id="ch_main_div1">
+<%= form_for @challenge do |f| %>
+<table width="100%" border="0" border cellspacing=12px>
+<tr>
+<div class="onthespantitle" onclick="TestingTitle();">
+<span class="ctitlecolor"><%= @challenge.title %></span>
+</div>
+<div id="replacedTitle">
+<%= text_field(:challenge, :title, :maxlength =>30, :class=> "titlewidth")%>
+<%= link_to image_tag("update.png", :class =>"replacetitle"), show_per_challenges_path(:id => @challenge.id) %>
+<%= link_to "CANCEL", show_per_challenges_path(:id => @challenge.id), :class => "replace_cancel" %>
+        </div>
+							<script>
+							$("#replacedTitle").hide();
+							function TestingTitle()
+							{
+									$(".onthespantitle").replaceWith($("#replacedTitle").show());
+							}
+
+							$('.replacetitle').click(function()
+							{
+									var startValue1 = $("#challenge_title").val();
+									var challengeId = '<%= @challenge._id %>'
+									jQuery.support.cors = true;
+									var objj = {
+												  myParams11:startValue1,
+												  myParams21:challengeId
+												};
+
+									$.get('/challenges/title_update',
+									{value:objj},
+									function(data) {
+
+									}, 'script'
+									);
+							});
+								
+							
+							
+							</script>
+					
+			<br>
+			</tr>
+					<table id="description">
+			<tr>
+					<td valign="top" height="34px" width="13%" >
+							<b class="elecolor">DESCRIPTION</b></td>
+					<td valign="top" width="73%">
+
+					<div class="onthespandescription" >
+							<span class="ondescricolor"><%= @challenge.description %></span>
+					</div>
+					<div id="replacedDescription">
+							<%= text_area(:challenge, :description,  :style => "width: 400px; height: 93px; resize:none;")%>
+							<%= link_to image_tag("update.png", :class =>"replacedesc"), show_per_challenges_path(:id => @challenge.id) %>
+							<%= link_to "CANCEL", show_per_challenges_path(:id => @challenge.id), :class => "replace_cancel_desc" %>
+					</div>
+					</td>
+					<td valign="top" width="12%" onclick="TestingDesc();">
+						<span id="image1"><%= image_tag("icon_edit.png") %></span>
+					</td>
+			</tr>
+			</table>
+			<script>
+					
+					$("#replacedDescription").hide();
+					function TestingDesc()
+					{
+							$(".onthespandescription").replaceWith($("#replacedDescription").show());
+					}
+
+					$('.replacedesc').click(function()
+					{
+							var startValue2 = $("#challenge_description").val();
+							var challengeId = '<%= @challenge._id %>'
+							jQuery.support.cors = true;
+							var objj = {
+							myParams11:startValue2,
+							myParams21:challengeId
+							};
+							$.get('/challenges/desc_update',
+							{value:objj},
+							function(data) {
+
+							}, 'script'
+						);
+					});
+			</script>
+
+			<hr/ width=400px>
+			</tr>
+			<tr>
+			<div id="startp">
+            <table>
+                <tr>
+                    <td width=120px height="34px" >
+                        <b class="elecolor">START POINT</b>
+                    </td>
+                    <td>
+                         <div id="TestStart" >
+
+                              <% if @challenge.start_point.instance_of?PointDateType %>
+                                  <b class="ondescricolor"><%= @challenge.start_point.value.strftime("%b %d, %Y")%> </b>
+                              <% else %>
+                                  <%ch = @challenge.start_point %>
+                                  <b class="ondescricolor"><%= @challenge.start_point.value.to_i %></b>
+                              <% end %>
+                         </div>
+                         <div id="replacedStart">
+                             <table>
+                                  <tr>
+                                       <% if @challenge.start_point.instance_of?PointDateType %>
+                                        <td width="50px;">
+                                          <div class="styled-select">
+                                            
+                                              <%= select_tag "start_point_type", "<option value='startPointDate'>Date</option>".html_safe , :required => "required" %>
+                                          </div>
+                                      </td>
+                                      <td colspan="2">
+                                          <div class="startPointDate">
+                                          </div>
+                                          <div class="startPointNumber">
+                                          </div>
+                                      </td>
+                                    <% else %>
+                                        <td width="50px;">
+                                          <div class="styled-select">
+                                            
+                                              <%= select_tag "start_point_type", "<option value='startPointNumber'>Number</option>".html_safe , :required => "required" %>
+                                          </div>
+                                      </td>
+                                      <td colspan="2">
+                                          <div class="startPointDate">
+                                          </div>
+                                          <div class="startPointNumber">
+                                          </div>
+                                      </td>
+                                    <% end %>
+                                  </tr>
+                                  <tr>
+                                      
+                                      <%= link_to image_tag("update.png", :class =>"dateUpdateStart") , show_per_challenges_path(:id => @challenge.id) %>
+                                      <%= link_to "CANCEL", show_per_challenges_path(:id => @challenge.id), :class => "links_cancel" %>
+                                     
+                                  </tr>
+                              </table>
+                         </div>
+              
+						</td>
+         
+                      <td valign="top" width="12%" onclick="TestingStartPoint();" >
+								<span id="image5"><%= image_tag("icon_edit.png") %></span>
+					  </td>
+					      <script>
+						  $(document).ready(function(){
+											
+											$("#image5").hide();
+											$("#image6").hide();
+											 $("#startp").mouseover(function(){
+												$("#image5").show();
+												
+											  });
+											   $("#endpt").mouseover(function(){
+												$("#image6").show();
+												
+											  });
+											  $(document).mouseout(function(){
+														
+														$("#image5").hide();
+														$("#image6").hide();
+													
+												 });
+							 });									
+                            $("#replacedStart").hide();
+                            function TestingStartPoint()
+                            {
+
+
+                                $("#TestStart").replaceWith($("#replacedStart").show());
+
+                            }
+                            
+                            $('.dateUpdateStart').click(function(){
+                              var startValue = $("#start_point_value").val();
+                              var startLabel = $("#start_point_label").val();
+                              var challengeId = '<%= @challenge.id %>'
+                              var objj = {
+                                  myParams11:startValue,
+                                  myParams31:startLabel,
+                                  myParams21:challengeId
+                                };
+                                jQuery.support.cors = true;
+                                $.get('/challenges/date_updateStart',
+                                    {value:objj},
+                                    function(data) {
+                                        
+                                    }, 'script'
+                                );
+                            });
+                            
+                         </script>
+                    </tr>
+            </table>
+			</div>
+<hr/ width=400px>
+</tr>
+<tr>
+<div id = "endpt">
+<table>
+                    <tr>
+                        <td width=120px height="34px">
+                             <b class="elecolor">END POINT</b>
+                        </td>
+                        <td>
+                         <div id="TestEnd" >
+                              <% if @challenge.end_point.instance_of?PointDateType %>
+                                  <b class="ondescricolor"><%= @challenge.end_point.value.strftime("%b %d, %Y")%> </b>
+                              <% else %>
+                                  <b class="ondescricolor"><%= @challenge.end_point.value.to_i %></b>
+                              <% end %>
+                         </div>
+                         <div id="replacedEnd">
+                             <table>
+                                  <tr>
+                                    <% if @challenge.end_point.instance_of?PointDateType %>
+                                        <td width="50px;">
+                                          <div class="styled-select">
+                                            
+                                              <%= select_tag "end_point_type", "<option value='endPointDate'>Date</option>".html_safe , :required => "required" %>
+                                          </div>
+                                      </td>
+                                      <td colspan="2">
+                                          <div class="endPointDate">
+                                          </div>
+                                          <div class="endPointNumber">
+                                          </div>
+                                      </td>
+                                    <% else %>
+                                        <td width="50px;">
+                                          <div class="styled-select">
+                                            
+                                              <%= select_tag "end_point_type", "<option value='endPointNumber'>Number</option>".html_safe , :required => "required" %>
+                                          </div>
+                                      </td>
+                                      <td colspan="2">
+                                          <div class="endPointDate">
+                                          </div>
+                                          <div class="endPointNumber">
+                                          </div>
+                                      </td>
+                                    <% end %>
+                                  </tr>
+                                  <tr>
+                                    
+                                      <%= link_to image_tag("update.png", :class =>"dateUpdateEnd"), show_per_challenges_path(:id => @challenge.id) %>
+                                      <%= link_to "CANCEL", show_per_challenges_path(:id => @challenge.id), :class => "links_cancel_end" %>
+                                    
+                                  </tr>
+								
+                              </table>
+                         </div>
+                         <script>
+                            $("#replacedEnd").hide();
+                            function TestingEnd()
+                            {
+                                $("#TestEnd").replaceWith($("#replacedEnd").show());
+                            }
+                            
+                            $('.dateUpdateEnd').click(function(){
+                                var endValue = $("#end_point_value").val();
+                                var endLabel = $("#end_point_label").val();
+                                var challengeId = '<%= @challenge.id %>'
+                                var obj = {
+                                  myParams1:endValue,
+                                  myParams3:endLabel,
+                                  myParams2:challengeId
+                                };
+                                jQuery.support.cors = true;
+                                $.get('/challenges/date_updateEnd',
+                                        {value:obj},
+                                        function(data) {
+                                            
+                                        }, 'script'
+                                );
+                                                                                                                     
+                                //window.location.href=window.location.href;
+                                
+                            });
+                            
+                         </script>
+                    </td>
+							
+                        <td>
+                             <%#=link_to image_tag("icon_edit.png"), date_update_challenges_path(:id => @challenge),:class=>"task_update_popup", :style => "text-decoration: underline;",:align=>"right" %>
+                        </td>
+						  	<td valign="top" width="12%" onclick="TestingEnd();" >
+											<span id="image6"><%= image_tag("icon_edit.png") %></span>
+							</td>
+					
+                    </tr>
+</table>
+</div>
+<hr/ width=400px>
+<br><br>
+<table bgcolor=#f4f4f4>
+<tr bgcolor="#FFA500">
+<td bgcolor="#FFA500"><b class="taskscolor">&nbsp; &nbsp; &nbsp;TASKS</b></td>
+
+</tr>
+</table>
+</tr>
+<tr>
+<div id="ch_main_div2">
+<table>
+<tr class="bgcolorb">
+<td width=80%>
+<h3 align="left"><b class="totalstyle">Total : <%= @challenge.tasks.count %></b></h3>
+</td>
+<td width=5%>
+                                            <% if isStandalone %>
+                                                <% if @challenge.user_id == current_user.gmauth.id%>
+<%= link_to image_tag("btn_add_up.png", :style =>"margin-top:3px;" ), add_task_link_challenges_path(:id => @challenge), :class => "addComment add_task_popup" %>
+<% end %>
+                                            <% else %>
+                                                <% if @challenge.user_id == current_user.fbauth.uid%>
+<%= link_to image_tag("btn_add_up.png", :style =>"margin-top:3px;" ), add_task_link_challenges_path(:id => @challenge), :class => "addComment add_task_popup" %>
+<% end %>
+                                            <% end %>
+</td>
+<td width=15%>
+                                            <% if isStandalone %>
+                                                <% if @challenge.user_id == current_user.gmauth.id %>
+<span class="totalstyle">ADD A TASK</span>
+<% end %>
+                                            <% else %>
+                                                <% if @challenge.user_id == current_user.fbauth.uid %>
+<span class="totalstyle">ADD A TASK</span>
+<% end %>
+                                            <% end %>
+</td>
+</tr>
+</table>
+<tr bgcolor=#D7D7D7>
+<% total_score = 0 %>
+<% score = 1 %>
+<!--<table>
+	<tr>
+		<td>
+		<b  id="total">Total: <%= @challenge.tasks.count %></b>
+		</td>
+	</tr>
+</table>-->
+
+<table bgcolor=#f4f4f4>
+	<thead>
+		<td width=57%>
+				Name
+		</td>
+		<td width=4%>
+					Points
+		</td>
+		<td width=2%>
+				<span id="sign">	x </span>
+		</td>
+		<td width=4%>
+					Hours
+		</td>
+		<td width=2%>
+					<span id="sign">	= </span>
+		</td>
+		<td width=10%>
+			My Score
+		</td>
+		<td width=21%>
+			Updated
+		</td>
+	</thead>
+</table>
+	<% t = 1 %>
+	<% task =0 %>
+    <% total_tasks = 0%>
+<table>
+	<tbody>
+		<% @challenge.tasks.each do |aTask| %>
+		<% if aTask.is_complete ==0 %>
+			<tr id="row<%=t %>" class="tr_style">
+		<% else %>
+			<tr id="row<%=t %>" class="tr_style1">
+		<% end %>
+				<td  width=58% >
+					<b  id="total"><%= aTask.name %></b>
+				</td>
+				<td width=6% class="td_content">
+					<%= aTask.score.to_i %>
+				</td>
+				<td width=6% class="td_content">
+				   <% if aTask.score_by == "Check box:1 for checking off the task"  %>
+						<span id="check_zero">
+								<% if aTask.total==0 %>
+									<img src="/assets/check_zero.PNG" id="myImage<%= t %>"  onclick="update_task<%=t%>();" />
+									<%#= image_tag ("check_zero.PNG"),:onclick=>"update_task#{t}();" %>
+								<% else %>
+									<img src="/assets/check_one.PNG" />
+								<% end %>
+						</span>
+							
+						<script>
+								function update_task<%=t%>()
+										{
+										 var image = "/assets/check_one.PNG"
+										 document.myImage<%= t %>.src=image	
+											 if (image== "/assets/check_one.PNG")
+											 {
+												var my_check_score="<%= aTask.score.to_i %>";
+												var elTableRow = document.getElementById("row<%= t%>");
+												var elTableCells = elTableRow.getElementsByTagName("td");
+												document.getElementById("hours_myscore<%=t%>").innerHTML=my_check_score
+											 }
+										}
+						</script>
+					<% else %>
+					 <%if aTask.total == 0 %>
+						<input type="text" id="hours<%=t%>" class="hour" onkeypress="return isNumberKey(event)" onmouseout="getvalue<%=t %>();" />
+					 <%else%>
+							<% sc_score =aTask.score.to_i %>
+							 <%= aTask.total.to_i.div sc_score.to_i  rescue 0 %>
+                     <% end %>					  
+					   <script>
+						   function isNumberKey(evt)
+								  {
+									 var charCode = (evt.which) ? evt.which : event.keyCode
+									 if (charCode > 31 && (charCode < 48 || charCode > 57))
+										return false;
+
+									 return true;
+								  }
+					   </script>
+					 
+					   <script>
+							   function getvalue<%=t %>()
+									   {
+									  
+										   var elTableRow = document.getElementById("row<%= t%>");
+											var elTableCells = elTableRow.getElementsByTagName("td");
+											var points = elTableCells[1].textContent
+											var self_report = document.getElementById("hours<%=t %>").value
+											var sum = points*self_report
+										
+											document.getElementById("hours_myscore<%=t%>").innerHTML=sum
+											 var total = elTableCells[3].textContent
+											 var mytotal=String(total).replace('\t','');
+										      var my_score= parseInt(mytotal);
+											  
+											 document.getElementById("sum<%=t%>").value=mytotal
+											 document.getElementById("ch<%=t%>").value="<%= @challenge.id %>";
+											 document.getElementById("task<%=t%>").value="<%= aTask.id %>"
+									  }
+					   </script>
+					   <%#= raise @sum.inspect %>
+				<% end %>
+				</td>
+				<td width=8% id="hours_myscore<%=t%>" class="td_content">
+				 <% if aTask.score_by == "Check box:1 for checking off the task"  %>
+				 <%if aTask.total == 0 %>
+				<b id="hours_myscore<%=t%>"><b id="orange"><%= aTask.total %></b></b>
+					<% else %>
+					<b id="hours_myscore<%=t%>"><b id="green"><%= aTask.total %></b></b>
+				<%end %>
+				<%else %>
+				 <%if aTask.total == 0 %>
+				<b id="hours_myscore<%=t%>"><b id="orange"><%= aTask.total %></b></b>
+					<% else %>
+					<b id="hours_myscore<%=t%>"><b id="green"><%= aTask.total %></b></b>
+				<%end %>
+				<% end %>
+				</td>
+				<td width=24% id="updated_at" class="td_content">
+			       <% if aTask.score_by == "Check box:1 for checking off the task"  %>
+				        <%if aTask.total == 0 %>
+							<%= link_to image_tag("update.png"), update_tasks_list_challenges_path(:id=>aTask.id, :challengeId=>@challenge.id, :score=>aTask.score.to_i,:total=>aTask.total) %>
+				        <% else %>
+							  <b id="update_time"><%=  time_ago_in_words aTask.updated_at %></b>
+						<% end%>
+					<% else %>
+					<%= form_tag myscore_update_self_report_challenges_path, :method => :get do %>
+					   <%=hidden_field_tag 'sum', @sum, :id=>"sum#{t}"%>
+					   <%=hidden_field_tag 'challenge', @ch, :id=>"ch#{t}"%>
+					   <%=hidden_field_tag 'task', @task, :id=>"task#{t}"%>
+					    <%if aTask.total == 0 %>
+							<%= submit_tag "" ,:class=>"my_submit_button1"%>
+						<% else %>
+							  <b id="update_time"><%=  time_ago_in_words aTask.updated_at %></b>
+						<% end%>		
+					<% end %>	
+				<% end %>
+				  
+				  
+				  
+				  
+		
+			
+			
+				</td>
+				<script>
+				function update_data<%=t%>()
+				{
+					var elTableRow = document.getElementById("row<%= t%>");
+					var elTableCells = elTableRow.getElementsByTagName("td");
+					alert(elTableCells[2].textContent);
+				}
+				</script>
+			
+			</tr>
+			<% if aTask.is_complete ==0 %>
+				<tr  id="hr_line"> 
+			<%else%>
+				<tr id="hr_line1"> 
+			<% end %>
+				<td colspan="5"> 
+
+					<hr/>
+				</td>
+			</tr> 
+         <%t+=1 %>		
+       <% if aTask.is_complete == 1 %>	
+			<% task+=1 %>
+		<% end %>
+	    <% total_tasks+=1%>
+		
+		<% total_score=total_score+ aTask.total.to_i %>
+		
+	<% end %>
+		
+</tbody>
+	<tfoot id="tfoot">
+		<td width=50%>
+			<span  id="taskstatus"><%= task %> Tasks Completed <% tasks_remaining =  total_tasks - task %> <%= tasks_remaining %> more  to go</span>
+		</td>
+		<td width=6%>
+			
+		</td>
+		<td width=6%>
+			
+		</td>
+		<td width=6% class="td_content">
+			<b  id="total_score" ><%=total_score %></b>
+		<td width=28%>
+			<b  id="total1"><%= button_to "" ,show_per_challenges_path,:class=>"my_submit_button_all"%></b>
+		</td>
+	</tfoot>
+	
+</table>
+
+	</tr>		
+</table>	
+
+<% end %>	
+
+</div>
+
+
+
+<div id="tooltip" class="tooltip">
+	
+</div>
+
+
+
+
+
+<script>
+	function changeVal(str,score) {
+		var tot_score = str*score;
+		$("#tatal_s").val(tot_score);
+	} 
+	// execute your scripts when the DOM is ready. this is a good habit
+	$(function() {	
+		
+		$('.task_update_popup').colorbox();
+		$('.add_task_popup').colorbox();
+		
+		$("#date").dateinput({
+			format: 'dddd dd, mmmm yyyy',	// the format displayed for the user
+			selectors: true,             	// whether month/year dropdowns are shown
+			min: -100,                    // min selectable day (100 days backwards)
+			max: 100,                    	// max selectable day (100 days onwards)
+			offset: [10, 20],            	// tweak the position of the calendar
+			speed: 'fast',               	// calendar reveal speed
+			firstDay: 1                  	// which day starts a week. 0 = sunday, 1 = monday etc..
+		});
+	});
+	
+	// setup tooltip for a single DIV element
+	$("#task_list a").tooltip({
+		// each trashcan image works as a trigger
+		tip: '#tooltip',
+
+		// custom positioning
+		position: 'center right',
+
+		// move tooltip a little bit to the right
+		offset: [0, 15],
+
+		// there is no delay when the mouse is moved away from the trigger
+		delay: 0
+	});
+	
+</script>
+
+

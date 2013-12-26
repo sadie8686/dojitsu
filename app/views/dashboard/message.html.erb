@@ -1,0 +1,52 @@
+<%= javascript_include_tag('jquery.tablesorter.min')%>
+<%= stylesheet_link_tag('style')%>
+    <script>
+	$(document).ready(function() 
+    { 
+        $("#myTable1").tablesorter( {sortList: [[0,0], [1,0]]} ); 
+    } 
+	); 
+   </script> 
+<table id="myTable1"  class="tablesorter">
+    <% if current_user.inbox.count == 0 %>
+        <p align="center">No message for you</p>
+    <% else %>
+    <thead>
+        <tr>
+            <th id="content3">FROM</th>
+            <th id="content4">
+               <span id="timespace">TIME</span>
+            </th>
+	</tr>
+    </thead>
+    <tbody>
+        <% current_user.inbox.each do |userMessage| %>
+        <tr>
+            <td width="10%" class="bordercolort4">
+                <%= image_tag(FbGraph::User.new(userMessage.from).fetch.picture) %>
+            </td>
+            <td width="90%" class="bordercolort2">
+                <span class="messages_box_picture">
+                	<table>
+                		<tr>                		
+                			<% challengeCreatedAt = userMessage.created_at.to_i %>              		              		
+				        		<% freranceTime = Time.now.to_i %>
+				        		<% diffTime = freranceTime - challengeCreatedAt %>
+				        		<% if diffTime > 8640 %>
+				        			<p class = "timestyle"><%= userMessage.created_at.strftime("%b %d, %Y") %></p>	
+				        		<% else %>
+				            	<p class = "timestyle"><%= time_ago_in_words  userMessage.created_at %></p>
+				            <% end %>                       			
+                		</tr><br>
+                		<tr><%=link_to( image_tag("icon_facebook.png"), "#", :class=>"icon_facebook") %></tr>
+                	</table>
+            	</span>
+                <span class="messages_box_name"><b><%= FbGraph::User.new(userMessage.from).fetch.name %></b></span></br>
+                <span class="messages_box_message"><b><%=h truncate(userMessage.body, :length => 55) %>..</b></span></br>
+                </td>
+            </td>
+        </tr>
+        <% end %>
+    </tbody>
+    <% end %>
+</table> 

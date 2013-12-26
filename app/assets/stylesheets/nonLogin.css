@@ -1,0 +1,274 @@
+.divone{
+	vertical-align:top;
+}
+.reg
+{
+	float: left;
+    left: 230px;
+    position: relative;
+    top: -38px;
+}
+.seetutorial
+{
+    float: left;
+    left: 50px;
+    position: relative;
+    top: -35px;
+}
+.facebooklike
+{
+ background: none repeat scroll 0 0 #FFFFFF;
+    color:#486197;
+    float: left;
+    height: 50px;
+    left: 20px;
+    position: relative;
+    top: 5px;
+    
+}
+
+.nLoginRegister {
+    background: none repeat scroll 0 0 #F8981D;
+    color: #FFFFFF;
+    float: right;
+    height: 22px;
+    width: 82px;
+}
+
+.nLoginCancel {
+    background: none repeat scroll 0 0 #A5A5A5;
+    color: #FFFFFF;
+    float: right;
+    height: 22px;
+    width: 62px;
+}
+
+#loginForm{
+	background:#ffffff;
+	margin-top:15px;
+}
+
+#email, #password{
+    background: none repeat scroll 0 0 #CFCFCF;
+    border-color: #A5A5A5;
+    border-style: solid;
+    border-width: 1px;
+    color: #C6C6C6;
+    font-family: Arial;
+    font-size: 15px;
+    height: 20px;
+    width: 415px;
+    background: #F4F4F4;
+}
+
+
+
+.dojitstuimage
+{
+position:relative;
+top:5px;
+width:45px;
+height:45px;
+background:#fff;
+border:1px solid #000;
+float:left;
+left:10px;
+}
+.dojitstuimage
+{
+position:relative;
+top:5px;
+width:45px;
+height:45px;
+background:#fff;
+border:1px solid #000;
+float:left;
+left:10px;
+}
+.messagereg
+{
+	width:568px;
+	height:140px;
+	background:#F9F7F7;
+	color:#000;
+	border:1px solid #DCDCDC;
+	margin-top:10px;
+}
+.sectionone{
+		background: #FFFFFF;
+}
+.sectiontwo
+{
+		background: #FFFFFF;
+		vertical-align:top;
+		padding-top:12px;
+}
+.newtag
+{
+	margin-left: -2px;
+    margin-top: -1px;
+}
+.titlecolor
+{
+	color: #AAA9A9;
+    font-size: 190%;
+}
+.tablemargin
+{
+	margin-top: -10px;
+}
+.tdpaddingleft
+{
+	color: #666666;
+    font-family: arial;
+    padding-left: 10px;
+}
+.chaltitlecolor
+{
+	font-family: arial;
+	font-weight: bold;
+	font-size: 15px;
+	color: #666666;
+}
+.createdtime
+{
+	float:right; 
+	margin-right:14px; 
+	color: #A9A8A8;
+}
+.textranform{
+	text-transform:none;
+	color: #666666;
+}
+.positionforimage{
+	position: relative;
+	top: 4px;
+}
+.dourbest
+{
+	top: 5px;
+	position:relative;
+}
+.register:hover{
+	cursor:pointer;
+}.cancel:hover{
+	cursor:pointer;
+}
+.dourbest1 {
+    position: relative;
+    top: 4px;
+}
+.LikeboxPluginPagelet{
+background: red;
+}
+ #check5 
+ {
+	color: #7AC142;
+	font-size: 15px;
+	font-weight:bold;
+	position: relative;
+	top: 27px;
+	left:10px;
+}
+ #check6 
+ {
+	color: #fff;
+	font-size: 15px;
+	position: relative;
+	top: 40px;
+	left:10px;
+	font-weight:bold;
+}
+.acceptimage
+{
+		position:relative;
+		left:760px;
+		top:15px;
+}
+.fbname
+{
+	color: #666666;
+    font-family: arial;
+	font-size: 12px;
+	font-weight: bold;
+}
+.bottomunderline{
+	 border-bottom: 1px solid #BEBEBE;
+}
+
+.fb_iframe_widget{
+	overflow: hidden;
+}
+.fb_ltr{
+	margin-left:-10px;
+	margin-right:-5px;
+	margin-top:-10px;
+	margin-bottom: -25px;
+}
+.registertomessage{
+	width:500px;
+	height:150px;
+	background:#f4f4f4;
+	padding-top:10px;
+	padding-left:10px;
+	padding-right:10px;
+}
+.nonlogintaskstable{
+	width:100%;
+	border:1px;
+}
+.nonlogin_tasks_tr{
+	background:#F5F5F5;
+}
+.nonlogin_tasks_count{
+	color:#8c8c8c;
+	text-align:left;
+}
+.nonlogin_trbgcolor{
+	background:#D7D7D7;
+}
+.nonlogin_points_color{
+	color:#999999;
+}
+.nonlogin_score_color{
+width:15%; 
+font-weight:bold;  
+color:#999999;
+}
+.nonlogin_tr_color{
+	background:#ffffff;
+}
+.task_score_nonlogin{
+	float:left;
+	margin-top:15px;
+}
+.task_name_nonlogin{
+	float:left;
+	margin-top:15px; 
+}
+.task_name_nonlogin{
+	float:left; 
+	margin-top:15px; 
+	margin-left:5px; 
+	text-decoration:line-through;
+}
+.nonlogin_trcolor{
+	background:#f4f4f4;
+}
+.task {
+    width: 790px;
+    background:url("perf_tracker_bg.png") repeat ;
+}
+.taskbar_togo_color{
+	font-size:14px;
+	color:#F8981D;
+}
+#nonlogin_markascomplete{
+	text-decoration: none; 
+	color:#ffffff; 
+	float:right; 
+}
+.tasks_slash{
+	height:10px;
+	width:5px;
+}

@@ -1,0 +1,122 @@
+<%= stylesheet_link_tag('main','nonLogin')%>
+<table class="nonlogintaskstable" >
+    <tr class="nonlogin_tasks_tr">
+        <th width="85%">
+            <h3><span class="nonlogin_tasks_count"><b>Total : <%= @challenge.tasks.count %></b></span></h3>
+        </th>
+        <% t=0 %>
+        <% @challenge.child_challenges.each do |aTask| %>
+            <% if aTask.user_id == @challenge.user_id %>
+                <% t+=1 %>
+            <%end%>
+        <%end%>
+        <% if t != 1 %>
+            <th width="3%">	</th>
+            <th width="12%"></th>
+        <% end %> 
+    </tr>
+    <tr class="nonlogin_trbgcolor">
+        <td width="90%">
+            <span class="nonlogin_points_color"><b>POINT(S)</b> <%= image_tag("icon_slash.png", :height => '12', :width => '5') %> <b>TASKS</b></span>
+        </td>
+        <td></td>
+        <td class="nonlogin_score_color">
+            SCORE
+        </td>
+    </tr>
+    <% total_score = 0 %>
+    <% total_score_count = 0 %>
+    <% total = 0 %>
+    <% @challenge.tasks.each do |aTask| %>
+    <% total += aTask.score.to_i %>
+      <tr class="nonlogin_tr_color">
+          <td colspan="3"  id="mytable" >
+              <% if aTask.is_complete.to_i == 0 %>
+                  <div id="task_list">
+                      <p class="task_score_nonlogin">
+                          <%= aTask.score %> 
+                          <%= image_tag("icon_slash.png", :class=>"tasks_slash")%>
+                      </p>
+                      <p class="task_name_nonlogin">
+                          <%= aTask.name %>
+                      </p>
+                      <div class="showperscore_0">
+                        <font style="color:black">0</font>	
+                      </div>
+                  </div>
+              <% else %>	
+                  <div id="task_list">
+                      <% total_score_count +=1 %>
+                      <span class="task_score_nonlogin"><%= aTask.score %> <%= image_tag("icon_slash.png", :class=>"tasks_slash")%> <%= aTask.name %></span>
+                  <div class="showperscore"><%= aTask.score %></div>
+                      <% total_score += aTask.score.to_i %>
+                  </div>
+              <% end %>
+              <hr/ width=400px>																																	
+          </td>
+      </tr>
+    <% end %>
+    <tr class="nonlogin_trcolor">
+       <td colspan="3"></td>
+    </tr>
+</table>
+<table class="nonlogin_trcolor">
+    <% if @challenge.social_type.status == 1%>
+        <tr class="nonlogin_trcolor">
+          <div>
+          My Dojitsu score: <br>
+          <div class="task" id="taskprogress"></div>
+		
+          <div class="showperscore1"><%= total_score %></div>	
+          
+            <div id="check3">
+                <div class="completedtask1"> 
+				<% if total_score_count < 1 %>
+                       <%= total_score %> points (<%= total_score_count %> &nbsp; tasks)
+					<%else%>
+						<%= total_score %> points (<%= total_score_count %> &nbsp; task)
+				<%end%>
+                </div>
+                <div class="notcompleted1">
+                       <span class="taskbar_togo_color"><b>to go:</b>
+					   </span>&nbsp; 
+					   	<% if total_score_count < 1 %>
+					   <%= (total-total_score) %> points (<%= @challenge.tasks.count.to_i-total_score_count.to_i %>&nbsp; tasks)
+					   <%else%>
+					   <%= (total-total_score) %> points (<%= @challenge.tasks.count.to_i-total_score_count.to_i %>&nbsp; task)
+					   <%end%>
+                </div>
+                <script type="text/javascript">
+                    $(function() {
+                            $("#taskprogress").progressbar({ value: Math.round(((<%= total_score %>/<%= total %>)*100)) });							
+                            $("<p>").attr("id", "check5").text($("#taskprogress").progressbar("option", "value") + "% Completed:  ").appendTo("#taskprogress");
+                    });
+                </script>
+                <%= link_to "MARK AS COMPLETED", "#", :id=>"nonlogin_markascomplete",:class => "challenge_mark_as_c"%>					
+            </div>
+        </tr>
+    <% else %>
+    <tr class="nonlogin_trcolor">
+        <div>
+        My Dojitsu score: <br>
+        <div class="task" id="taskprogress"></div>
+        <div class="showperscore1"><%= total_score %></div>	
+
+            <div id="check3">
+                <script type="text/javascript">
+                    $(function() {
+                        $("#taskprogress").progressbar({ value: 0});							
+                        $("<p>").attr("id", "check6").text( "A good start is half done.let's get this started!   ").appendTo("#taskprogress");
+                    });
+                </script>
+                
+                
+                <div class="acceptimage">
+                <%= link_to image_tag("accepted.png"), update_status_challenges_path(:id => @challenge, :status=> 1) %>
+                </div>
+            </div>
+            </tr>
+    <% end %>
+</table>
+
+
